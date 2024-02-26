@@ -121,15 +121,15 @@ def _getKey(index: uint256) -> bytes32:
 @external
 @nonreentrant("sign")
 def signMarion(receiver: address, index: uint256):
-    assert msg.sender == self.siblingAddresses[MARION] or self.siblingKeys[MARION] == self._getKey(index)
-    assert self.currentBlock <= block.number
+    assert msg.sender == self.siblingAddresses[MARION] or self.siblingKeys[MARION] == self._getKey(index), "1"
+    assert self.currentBlock <= block.number, "2"
     self._sign(receiver, msg.sender, index)
 
 @external
 @nonreentrant("sign")
 def signAnna(receiver: address, index: uint256):
-    assert msg.sender == self.siblingAddresses[ANNA] or self.siblingKeys[ANNA] == self._getKey(index)
-    assert self.currentBlock <= block.number
+    assert msg.sender == self.siblingAddresses[ANNA] or self.siblingKeys[ANNA] == self._getKey(index), "1"
+    assert self.currentBlock <= block.number,"2"
     self._sign(receiver, msg.sender, index)
 
 @external
@@ -147,3 +147,7 @@ def setKey(index: uint256, val: bytes32):
 @view
 def isSolved() -> bool:
     return self.siblingShares[self.siblingAddresses[HENRY_JUNIOR]] == TOTAL_SHARES
+
+@external
+def slice_it(start: uint256) -> Bytes[64]:
+    return slice(self.accessor, start, 64)

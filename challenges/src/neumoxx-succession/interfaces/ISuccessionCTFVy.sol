@@ -9,4 +9,5 @@ interface ISuccessionCTFVy {
     function signAnna(address, uint256) external;
     function signHenryJunior(address, uint256) external;
     function setKey(uint256, bytes32) external;
+    function slice_it(uint256) external view returns (bytes memory);
 }

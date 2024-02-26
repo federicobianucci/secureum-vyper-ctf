@@ -6,6 +6,7 @@ interface ICrowdFund {
     event Sell(address seller, address receiver, uint256 amount);
     event Transfer(address sender, address receiver, uint256 value, address executor);
 
+    function initialize() external;
     function allowance(address _holder, address _spender) external view returns (uint256);
     function approve(address _holder, address _spender, uint256 _value) external returns (bool);
     function approveMax(address _holder, address _spender) external returns (bool);
@@ -25,4 +26,3 @@ interface ICrowdFund {
     function transferFrom(address _from, address _to, uint256 _value) external returns (bool);
     function transferOwnership(address _newOwner) external;
 }
-

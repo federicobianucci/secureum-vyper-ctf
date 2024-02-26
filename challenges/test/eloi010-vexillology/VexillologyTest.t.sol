@@ -20,11 +20,13 @@ contract VexillologyTest is Test, VexillologyDeployer {
         assertFalse(vyperVexillology.isSolved());
     }
 
-    /// @notice Test that the ExampleCTF is solved
+    /// @notice Test that the Vexilollogy is solved
     function test_vexillologySolved() external {
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
+        vyperVexillology.hoist_flag();
+        vyperVexillology.invert_flag();
 
         assertTrue(vyperVexillology.isSolved());
     }

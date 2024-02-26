@@ -9,34 +9,40 @@ import {ISuccessionCTFVy} from "src/neumoxx-succession/interfaces/ISuccessionCTF
 // Import dependencies for your solution here! //
 //             (if you need any)               //
 ///////////////////////////////////////////////*/
-
-
+import {ExploiterNoReentrancy} from "test/neumoxx-succession/ExploiterNoReentrancy.sol";
+import {ExploiterReentrancy} from "test/neumoxx-succession/ExploiterReentrancy.sol";
 
 contract SuccessionCTFTest is Test, SuccessionCTFDeployer {
     ISuccessionCTFVy public successionCTF;
 
-    /// @notice Deploy the ExampleCTF and the solution contract
     function setUp() public override(SuccessionCTFDeployer) {
-
         SuccessionCTFDeployer.setUp();
 
         successionCTF = ISuccessionCTFVy(deploySuccessionCTF());
 
         vm.deal(address(successionCTF), 1 ether);
-
-
     }
 
-    /// @notice Test that the ExampleCTF is unsolved if we don't do anything
     function test_successionUnsolved() external {
         assertFalse(successionCTF.isSolved());
     }
 
-    /// @notice Test that the ExampleCTF is solved if we call the solve function
-    function test_successionSolved() external {
+    function test_successionSolved_noreentrancy() external {
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
+        ExploiterReentrancy exploiter = new ExploiterReentrancy(address(successionCTF));
+        exploiter.attack();
+
+        assertTrue(successionCTF.isSolved());
+    }
+
+    function test_successionSolved_reentrancy() external {
+        /*//////////////////////////////////////
+        //     Write your solution here       //
+        //////////////////////////////////////*/
+        ExploiterReentrancy exploiter = new ExploiterReentrancy(address(successionCTF));
+        exploiter.attack();
 
         assertTrue(successionCTF.isSolved());
     }

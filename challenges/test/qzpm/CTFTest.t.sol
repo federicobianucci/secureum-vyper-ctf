@@ -11,8 +11,6 @@ import {MockERC20} from "src/qzpm/MockERC20.sol";
 //             (if you need any)               //
 ///////////////////////////////////////////////*/
 
-
-
 /// ExampleCTFTest to showcase the solution to the ExampleCTF
 contract ExampleCTFTest is Test, CTFDeployer {
     ICTFVy public vyperSecureumCTF;
@@ -22,7 +20,6 @@ contract ExampleCTFTest is Test, CTFDeployer {
 
     /// @notice Deploy the ExampleCTF
     function setUp() public override(CTFDeployer) {
-
         CTFDeployer.setUp();
 
         (assetToken, ctf) = CTFDeployer.deployCTF();
@@ -49,6 +46,10 @@ contract ExampleCTFTest is Test, CTFDeployer {
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
+        assetToken.faucet(address(this), type(uint256).max);
+        assetToken.approve(address(vyperSecureumCTF), type(uint256).max);
+
+        vyperSecureumCTF.deposit(3, address(this));
 
         assertTrue(vyperSecureumCTF.isSolved());
     }

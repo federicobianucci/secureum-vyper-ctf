@@ -29,7 +29,7 @@ def _convertToShares(assets: uint256, _ceil: bool) -> uint256:
 def _convertToAssets(shares: uint256) -> uint256:
     total_shares: uint256 = self.total_shares
     total_assets: uint256 = self.total_assets
-    return shares * (total_assets + 2) / (total_shares + 1)
+    return shares * (total_assets + 2) / (total_shares + 1) # must be > 20 
 
 @external
 def __init__(token: address):
