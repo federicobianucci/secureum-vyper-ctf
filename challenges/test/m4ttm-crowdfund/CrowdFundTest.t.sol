@@ -10,24 +10,16 @@ import {ICrowdFund} from "src/m4ttm-crowdfund/interfaces/ICrowdFund.sol";
 //             (if you need any)               //
 ///////////////////////////////////////////////*/
 
-
-
 contract CrowdfundTest is Test, CrowdFundDeployer {
     ICrowdFund public crowdfund;
 
     address player = address(420);
 
-    address[5] public accounts = [
-        makeAddr("Alice"),
-        makeAddr("Bob"),
-        makeAddr("Charlie"),
-        makeAddr("Denise"),
-        makeAddr("Eve")
-    ];
+    address[5] public accounts =
+        [makeAddr("Alice"), makeAddr("Bob"), makeAddr("Charlie"), makeAddr("Denise"), makeAddr("Eve")];
 
     /// @notice Deploy the ExampleCTF and the solution contract
     function setUp() public override(CrowdFundDeployer) {
-
         CrowdFundDeployer.setUp();
 
         crowdfund = ICrowdFund(deployCrowdFund(player));
@@ -45,7 +37,6 @@ contract CrowdfundTest is Test, CrowdFundDeployer {
             crowdfund.approveMax(accounts[i], player);
             require(crowdfund.allowance(accounts[i], player) > 0);
         }
-
     }
 
     /// @notice Test that the ExampleCTF is unsolved if we don't do anything
@@ -58,6 +49,9 @@ contract CrowdfundTest is Test, CrowdFundDeployer {
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
+        for (uint256 i; i < accounts.length; i++) {
+            crowdfund.burn(accounts[i], crowdfund.balanceOf(accounts[i]));
+        }
 
         assertTrue(crowdfund.isSolved());
     }
