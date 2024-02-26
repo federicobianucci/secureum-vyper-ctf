@@ -49,7 +49,9 @@ contract ExampleCTFTest is Test, CTFDeployer {
         assetToken.faucet(address(this), type(uint256).max);
         assetToken.approve(address(vyperSecureumCTF), type(uint256).max);
 
-        vyperSecureumCTF.deposit(3, address(this));
+        for (uint256 i = 0; i < 19; i++) {
+            vyperSecureumCTF.deposit(1, address(this));
+        }
 
         assertTrue(vyperSecureumCTF.isSolved());
     }
