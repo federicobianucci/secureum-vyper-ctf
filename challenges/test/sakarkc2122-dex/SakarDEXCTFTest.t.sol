@@ -12,8 +12,6 @@ import {IToken2} from "src/sakarkc2122-dex/interfaces/IToken2.sol";
 //             (if you need any)               //
 ///////////////////////////////////////////////*/
 
-
-
 contract PomodoroeCTFTest is Test, SakarDEXCTFDeployer {
     IDex public dex;
     IToken1 public token1;
@@ -21,7 +19,6 @@ contract PomodoroeCTFTest is Test, SakarDEXCTFDeployer {
 
     /// @notice Deploy the ExampleCTF and the solution contract
     function setUp() public override(SakarDEXCTFDeployer) {
-
         address sakar = makeAddr("I am Sakar and I am deploying this CTF!");
 
         SakarDEXCTFDeployer.setUp();
@@ -41,10 +38,8 @@ contract PomodoroeCTFTest is Test, SakarDEXCTFDeployer {
         token2.approve(address(dex), type(uint256).max);
         dex.addLiquidity(address(token1), 1000);
         dex.addLiquidity(address(token2), 1000);
-    
+
         vm.stopPrank();
-
-
     }
 
     /// @notice Test that the ExampleCTF is unsolved if we don't do anything
@@ -61,6 +56,7 @@ contract PomodoroeCTFTest is Test, SakarDEXCTFDeployer {
         address user = makeAddr("user");
         token1.mint(user, 100);
         token2.mint(user, 100);
+        vm.startPrank(user);
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
@@ -68,7 +64,3 @@ contract PomodoroeCTFTest is Test, SakarDEXCTFDeployer {
         assertTrue(dex.isSolved());
     }
 }
-
-
-
-
