@@ -24,7 +24,27 @@ contract PomodoroCTFTest is Test, PomodoroCTFDeployer {
         pomodoro = IPomodoro(_pomodoro);
         pomodoroNFT = IPomodoroNFT(_pomodoroNFT);
 
-        vm.deal(address(pomodoro), 1000000 ether);
+        pomodoro.setPomodoroNFTAddress(address(pomodoroNFT));
+        address user1 = makeAddr("USER1");
+        vm.deal(user1, 1e17);
+        vm.prank(user1);
+        (bool succ,) = address(pomodoroNFT).call{value: 1e17}(abi.encodeWithSignature("mint(address)", user1));
+        require(succ, "mint failed");
+        address user2 = makeAddr("USER2");
+        vm.deal(user2, 1e17);
+        vm.prank(user2);
+        (succ,) = address(pomodoroNFT).call{value: 1e17}(abi.encodeWithSignature("mint(address)", user2));
+        require(succ, "mint failed");
+        address user3 = makeAddr("USER3");
+        vm.deal(user3, 1e17);
+        vm.prank(user3);
+        (succ,) = address(pomodoroNFT).call{value: 1e17}(abi.encodeWithSignature("mint(address)", user3));
+        require(succ, "mint failed");
+        address user4 = makeAddr("USER4");
+        vm.deal(user4, 1e17);
+        vm.prank(user4);
+        (succ,) = address(pomodoroNFT).call{value: 1e17}(abi.encodeWithSignature("mint(address)", user4));
+        require(succ, "mint failed");
     }
 
     function test_pomodoroUnsolved() external {
@@ -32,6 +52,9 @@ contract PomodoroCTFTest is Test, PomodoroCTFDeployer {
     }
 
     function test_pomodoroSolved() external {
+        // attacker starts with 1e17 and can't deal ETH anymore
+        address attacker = makeAddr("ATTACKER");
+        vm.deal(attacker, 1e17);
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
