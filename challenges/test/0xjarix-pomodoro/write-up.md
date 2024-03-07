@@ -1,10 +1,10 @@
-# 0xjarix - Pomodoro - Solution
+# 0xjarix-Pomodoro - Solution
 
 ## Find the vulnerability
 
 Looking at the contract we found that the only external call is present in `claimReward` function. Let's dive deeper.
 
-```vyper
+```python
 @external
 @nonreentrant('')
 def claimReward(_tokenId: uint256):
