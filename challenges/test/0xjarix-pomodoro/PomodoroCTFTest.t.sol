@@ -55,12 +55,13 @@ contract PomodoroCTFTest is Test, PomodoroCTFDeployer {
         // attacker starts with 1e17 and can't deal ETH anymore
         address attacker = makeAddr("ATTACKER");
         vm.deal(attacker, 1e17);
+        vm.startPrank(attacker);
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
         Exploiter exploiter = new Exploiter(address(pomodoro), address(pomodoroNFT));
         exploiter.mintAndStartWorkSession{value: 0.1 ether}();
-        vm.warp(26 minutes);
+        vm.warp(25 minutes + 1);
         exploiter.attack();
 
         assertTrue(pomodoro.isSolved());
