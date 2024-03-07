@@ -31,13 +31,6 @@ contract ZacByteBrewCTFTest is Test, ZacByteBrewDeployer {
         zacByteBrew.modify(32 - 3, 4);
         zacByteBrew.modify(32 - 9, 5);
         zacByteBrew.modify(32 - 8, 6);
-        console2.log("slot 0:", zacByteBrew.getSlot(0));
-        console2.log("slot 1:", zacByteBrew.getSlot(1));
-        console2.log("slot 2:", zacByteBrew.getSlot(2));
-        console2.log("slot 3:", zacByteBrew.getSlot(3));
-        console2.log("slot 4:", zacByteBrew.getSlot(4));
-        console2.log("slot 5:", zacByteBrew.getSlot(5));
-        console2.log("slot 6:", zacByteBrew.getSlot(6));
 
         assertTrue(zacByteBrew.isSolved());
     }

