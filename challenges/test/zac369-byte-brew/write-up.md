@@ -30,7 +30,7 @@ def generate(numChars: uint256):
 It simply concat a "z" after a temp variable but we found this https://security.snyk.io/vuln/SNYK-PYTHON-VYPER-6179658. Bingo!
 We can alter memory so we can alter `answerSlots` assignments. But how?
 
-First we need to solve a logic problem. The problem:
+First we need to solve a logic problem:
 
 ```
 "I went to the cafe to get some c0ffee" X2
