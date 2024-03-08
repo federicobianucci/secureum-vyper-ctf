@@ -33,7 +33,7 @@ def claimReward(_tokenId: uint256):
     self.sessions[msg.sender].ongoing = False
 ```
 
-The function has a nonreentrant modifier so in theory it can't be reentered. However looking at vyper specific version vulnerability [here](https://security.snyk.io/package/pip/vyper/0.3.9) we found [this](https://security.snyk.io/vuln/SNYK-PYTHON-VYPER-5905483). `@nonreentrant('')` lock is bugged and do not check for reentrancy. Bingo!
+The function has a `@nonreentrant` decorator so in theory it can't be reentered. However looking at vyper specific version vulnerability [here](https://security.snyk.io/package/pip/vyper/0.3.9) we found [this](https://security.snyk.io/vuln/SNYK-PYTHON-VYPER-5905483). `@nonreentrant('')` lock is bugged and do not check for reentrancy. Bingo!
 
 ## Exploit the contract
 

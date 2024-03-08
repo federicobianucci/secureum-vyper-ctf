@@ -6,6 +6,14 @@ Looking at the contract we immediatly notice that it's impossible to capture the
 
 Let's dive in on how enumsworks in vyper through this article: https://medium.com/@de33/enums-in-vyper-0-3-4-6ec2d387bc3a.
 
+```
+FOLDED      00001
+HOISTED     00010
+INVERTED    00100
+HALF_MAST   01000
+CAPTURED    10000
+```
+
 Inverting the INVERTED flag will result in 11011, not the CAPTURED flag.
 
 However, inspectig the `isSolved` function, we notice the there is no equality check but `in`. As per vyper [doc](https://docs.vyperlang.org/en/stable/types.html?highlight=enums#enums):

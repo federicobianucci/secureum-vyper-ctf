@@ -31,7 +31,7 @@ contract SuccessionCTFTest is Test, SuccessionCTFDeployer {
         /*//////////////////////////////////////
         //     Write your solution here       //
         //////////////////////////////////////*/
-        ExploiterReentrancy exploiter = new ExploiterReentrancy(address(successionCTF));
+        ExploiterNoReentrancy exploiter = new ExploiterNoReentrancy(address(successionCTF));
         exploiter.attack();
 
         assertTrue(successionCTF.isSolved());
