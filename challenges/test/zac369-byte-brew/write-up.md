@@ -56,7 +56,7 @@ cafe c0ffee -> 1a 0b 2c 0d 3e 3f
 
 If we do the same to the other phrase we obtain 2a 2b 4c 3d 9e 8f
 
-How can we achieve that? Remember `generate` function? Passing numChars we can choose from an array of string with different lengths 1 to 31 and concatenating z we obtain a maximum of 32 bytes length. So we can decide how to alter memory shifting each constants by passing `numChars` = 32 - occurence of each letter.
+How can we achieve that? Remember `generate` function? Passing a specific `numChars` we can choose from `self.vypers` that is an array of string with different lengths, from 0 to 31, and concatenating z we obtain a maximum of 32 bytes length. So we can decide how to alter memory shifting right `a` variable (`a: uint256 = numbers[slot % 7]`) by numChars bytes where `numChars = 32 - occurence of letter`.
 
 ## Exploit the contract
 
