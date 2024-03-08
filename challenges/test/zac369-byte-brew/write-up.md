@@ -48,7 +48,7 @@ As the evening approached, some customers decided to call it an evening and went
 ? ? ? ? ? ? ?
 ```
 
-If we put the constant array in hex it wil result in:
+If we convert the `numbers` array in hex it will result in:
 
 `[0, 0xaaaa...aaaa, 0xbbbb...bbbb, 0xcccc...cccc, 0xdddd...ddd, 0xeeee...eeee, 0xffff...ffff]`
 
