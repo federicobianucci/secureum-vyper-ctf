@@ -50,7 +50,7 @@ If we put the constant array in hex it wil result in:
 
 `[0, 0xaaaa...aaaa, 0xbbbb...bbbb, 0xcccc...cccc, 0xdddd...ddd, 0xeeee...eeee, 0xffff...ffff]`
 
-Problem values 0 170 0 52428 0 15658734 16777215 are simply constants values shifted right by 32 minus the numbers of occurence in the phrase in the worlds that contains only that letters (including the 0). Boom!
+Problem values 0 170 0 52428 0 15658734 16777215 are simply constants values shifted right by 32 minus the numbers of occurence in the phrase in the words that contains only that letters (including the 0). Boom!
 
 cafe c0ffee -> 1a 0b 2c 0d 3e 3f
 
