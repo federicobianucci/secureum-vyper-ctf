@@ -2,9 +2,11 @@
 
 ## Find the vulnerability
 
-This is funniest challenge. We need to satisfiy `self.calculateHash() == 0x44151f2d1d75e470fe53e66a10133905bb427c52162de88f778835705f0c5b43`.
+I have to admit that this is the funniest challenge. Let's start.
 
-We only have this function:
+We need to satisfiy `self.calculateHash() == 0x44151f2d1d75e470fe53e66a10133905bb427c52162de88f778835705f0c5b43`.
+
+We only have this function available to call:
 
 ```python
 @external
